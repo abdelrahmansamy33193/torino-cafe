@@ -1,48 +1,57 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// webpack.common.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-/** @type {import('webpack').Configuration} */
 module.exports = {
-  entry: './src/index.js',
-  target: 'web',
+  entry: path.resolve(__dirname, "src/index.js"),
   output: {
-    filename: 'bundle.[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'assets/[hash][ext][query]',
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.[contenthash].js",
+    assetModuleFilename: "assets/[name].[contenthash][ext][query]",
     clean: true,
-    publicPath: '/',
+    publicPath: "/", // عشان SPA routing يشتغل
+  },
+  resolve: {
+    extensions: [".js", ".jsx"],
   },
   module: {
     rules: [
+      // JS/JSX via Babel
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, "src"),
+        use: "babel-loader",
       },
+      // صور كـ asset/resource لو بتعمل import للصور من JS
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(png|jpe?g|gif|svg|webp|avif)$/i,
+        type: "asset/resource",
+        generator: { filename: "img/[name].[contenthash][ext]" },
       },
-      {
-        test: /\.(png|jpe?g|gif|svg|webp)$/i,
-        type: 'asset',
-        parser: { dataUrlCondition: { maxSize: 8 * 1024 } }
-      },
+      // خطوط
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
+        generator: { filename: "fonts/[name].[contenthash][ext]" },
       },
     ],
   },
   plugins: [
+    // هيولد dist/index.html ويحقن السكربت/الستايل تلقائي
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
-      filename: 'index.html'
-    })
+      template: path.resolve(__dirname, "public/index.html"),
+      inject: "body",
+    }),
+    // انسخ مجلد public كله إلى dist (ماعدا index.html لأنه فوق بيتولد)
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public",
+          to: ".",
+          globOptions: { ignore: ["**/index.html"] },
+        },
+      ],
+    }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
 };

@@ -2,10 +2,12 @@ import React from "react";
 
 export default function Home() {
   return (
-    <section className="section">
+    <section className="hero">{/* الخلفية من CSS باستخدام /img/home-bg.jpg */}
       <div className="container" data-reveal>
-        <h2>أهلاً بيك في Torino Café ☕</h2>
-        <p className="muted">قهوة مظبوطة، مكونات طازة، ومكان مريح.</p>
+        <h1>Torino Café</h1>
+        <p className="muted">
+          قهوة مظبوطة، مكونات طازة، ومكان مريح — جرّب مزاج تورينو.
+        </p>
       </div>
     </section>
   );
