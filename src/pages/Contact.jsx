@@ -3,7 +3,7 @@ import React from "react";
 export default function Contact() {
   return (
     <section className="section">
-      <div className="container">
+      <div className="container" data-reveal>
         <h2>تواصل</h2>
         <ul className="contact">
           <li>📍 العنوان: اكتب عنوان الكافيه هنا</li>

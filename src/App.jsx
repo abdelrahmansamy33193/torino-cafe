@@ -16,10 +16,9 @@ import NotFound from "./pages/NotFound";
 import { useScrollFX } from "./hooks/useScrollFX";
 import BackToTop from "./components/BackToTop";
 
-// غلاف داخل الراوتر عشان نقدر نجيب المسار
 function Shell() {
-  const location = useLocation();          // ← هنا بناخد الـ pathname
-  useScrollFX(location.pathname);          // ← نمرره للهوك
+  const location = useLocation();       // ← المسار الحالي
+  useScrollFX(location.pathname);       // ← مرّره للهوك
 
   return (
     <>
@@ -35,20 +34,11 @@ function Shell() {
               Torino Café
             </NavLink>
           </div>
-
           <nav className="nav">
-            <NavLink to="/" end className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
-              Home
-            </NavLink>
-            <NavLink to="/menu" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
-              Menu
-            </NavLink>
-            <NavLink to="/about" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
-              About
-            </NavLink>
-            <NavLink to="/contact" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
-              Contact
-            </NavLink>
+            <NavLink to="/" end className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>Home</NavLink>
+            <NavLink to="/menu" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>Menu</NavLink>
+            <NavLink to="/about" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>About</NavLink>
+            <NavLink to="/contact" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>Contact</NavLink>
           </nav>
         </div>
       </header>

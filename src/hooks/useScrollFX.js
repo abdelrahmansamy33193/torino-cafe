@@ -1,4 +1,3 @@
-// src/hooks/useScrollFX.js
 import { useEffect } from "react";
 
 export function useScrollFX(dep) {
@@ -16,8 +15,6 @@ export function useScrollFX(dep) {
       },
       { threshold: 0.1 }
     );
-
-    // لاحظ: ما نرصدش العناصر اللي already ظاهرة
     els.forEach((el) => {
       if (!el.classList.contains("is-visible")) io.observe(el);
     });
@@ -39,5 +36,5 @@ export function useScrollFX(dep) {
       window.removeEventListener("scroll", onScroll);
       io.disconnect();
     };
-  }, [dep]); // ← مهم: rerun عند تغيّر dep (المسار)
+  }, [dep]);
 }
