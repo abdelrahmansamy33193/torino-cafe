@@ -18,7 +18,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
-    publicPath: '/',
+    publicPath: 'auto',
     clean: true
   },
 
