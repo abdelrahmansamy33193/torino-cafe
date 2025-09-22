@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "useBuiltIns": "usage", "corejs": "3.38" }],
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        ["@babel/preset-react", { "runtime": "automatic", "development": true }]
+      ]
+    }
+  }
+}
