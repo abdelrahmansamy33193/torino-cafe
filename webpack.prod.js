@@ -24,13 +24,20 @@ module.exports = {
 
   module: {
     rules: [
-      // JS/JSX عبر Babel
-      { test: /\.(js|jsx)$/, exclude: /node_modules/, use: { loader: 'babel-loader' } },
+      // JS/JSX via Babel
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: { loader: 'babel-loader' }
+      },
 
-      // CSS: استخراج ملف مستقل
-      { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
+      // CSS: extract in prod
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
 
-      // صور وأصول
+      // Images & assets
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: 'asset',
@@ -38,15 +45,13 @@ module.exports = {
         generator: { filename: 'assets/[name][ext][query]' }
       },
 
-      // خطوط
+      // Fonts
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/fonts/[name][ext][query]' }
-      },
-
-      // HTML
-      { test: /\.html$/i, loader: 'html-loader' }
+      }
+      // ⚠️ ما نستخدم html-loader في الإنتاج هنا
     ]
   },
 
@@ -59,6 +64,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html',
+      inject: 'body',
+      scriptLoading: 'defer',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -85,13 +92,21 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({ extractComments: false, terserOptions: { compress: { drop_console: false } } }),
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: { compress: { drop_console: false } }
+      }),
       new CssMinimizerPlugin()
     ],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        vendors: { test: /[\\/]node_modules[\\/]/, name: 'vendors', priority: -10, reuseExistingChunk: true }
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: -10,
+          reuseExistingChunk: true
+        }
       }
     },
     runtimeChunk: 'single'
