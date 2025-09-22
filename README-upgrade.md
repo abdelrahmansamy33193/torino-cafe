@@ -1,4 +1,4 @@
-# Torino Café — Upgraded Setup
+# B12 Café — Upgraded Setup
 
 This project includes:
 - Split Webpack configs (common/dev/prod) with HtmlWebpackPlugin

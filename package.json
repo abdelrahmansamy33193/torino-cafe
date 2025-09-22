@@ -1,7 +1,7 @@
 {
-  "name": "torino-cafe",
+  "name": "b12_cafe",
   "version": "1.0.0",
-  "description": "React + Webpack setup for Torino Cafe",
+  "description": "React + Webpack setup for B12 Cafe",
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development BABEL_ENV=development webpack serve --config webpack.dev.js",
@@ -14,7 +14,7 @@
     "react",
     "webpack",
     "babel",
-    "torino"
+    "B12_cafe"
   ],
   "author": "Abd-Elrahman",
   "license": "ISC",

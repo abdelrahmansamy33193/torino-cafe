@@ -12,12 +12,12 @@ export default async function handler(req, res) {
     const to = process.env.TO_EMAIL || "owner@example.com";
 
     await resend.emails.send({
-      from: "Torino Café <onboarding@resend.dev>",
+      from: "B12 Café <onboarding@resend.dev>",
       to,
       reply_to: email,
       subject: `New message from ${name}`,
       html: `
-        <h2>Torino Café - Contact Form</h2>
+        <h2>B12 Café - Contact Form</h2>
         <p><b>Name:</b> ${escapeHtml(name)}</p>
         <p><b>Email:</b> ${escapeHtml(email)}</p>
         <p><b>Message:</b></p>

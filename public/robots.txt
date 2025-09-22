@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://torino-dhe7qum2d-abdelrahman-samys-projects-2853068b.vercel.app/sitemap.xml
+Sitemap: https://B12_cafe-dhe7qum2d-abdelrahman-samys-projects-2853068b.vercel.app/sitemap.xml

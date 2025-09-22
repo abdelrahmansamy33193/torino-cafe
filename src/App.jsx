@@ -31,7 +31,7 @@ function Shell() {
         <div className="container nav-inner">
           <div className="logo">
             <NavLink to="/" end className="logo" style={{ textDecoration: "none", color: "inherit" }}>
-              Torino Café
+              B12 Café
             </NavLink>
           </div>
           <nav className="nav">
@@ -56,7 +56,7 @@ function Shell() {
       </main>
 
       <footer className="footer">
-        <div className="container">© {new Date().getFullYear()} Torino Café</div>
+        <div className="container">© {new Date().getFullYear()} B12 Café</div>
       </footer>
 
       <BackToTop />
