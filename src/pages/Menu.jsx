@@ -4,9 +4,7 @@ const MENU = [
   { id: 1, name: "Espresso", price: "45 EGP", desc: "قهوة مركّزة بطعم غني." },
   { id: 2, name: "Cappuccino", price: "65 EGP", desc: "شوت إسبريسو + حليب رغوي." },
   { id: 3, name: "Latte", price: "60 EGP", desc: "حليب ناعم مع إسبريسو." },
-  { id: 4, name: "Mocha", price: "70 EGP", desc: "شوكولاتة + إسبريسو + حليب." },
-  { id: 5, name: "Iced Coffee", price: "55 EGP", desc: "قهوة مثلّجة منعشة." },
-  { id: 6, name: "Croissant", price: "40 EGP", desc: "مخبوز يوميًا بالزبدة." }
+  { id: 4, name: "Mocha", price: "70 EGP", desc: "شوكولاتة + إسبريسو + حليب." }
 ];
 
 export default function Menu() {

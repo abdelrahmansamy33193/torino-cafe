@@ -1,26 +1,54 @@
 import React from "react";
-import { Link, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  NavLink,
+  Navigate,
+  useLocation
+} from "react-router-dom";
 import "./styles.css";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import { useScrollFX } from "./hooks/useScrollFX";
+import BackToTop from "./components/BackToTop";
 
-export default function App() {
+// غلاف داخل الراوتر عشان نقدر نجيب المسار
+function Shell() {
+  const location = useLocation();          // ← هنا بناخد الـ pathname
+  useScrollFX(location.pathname);          // ← نمرره للهوك
+
   return (
     <>
+      {/* شريط تقدّم التمرير */}
+      <div className="scroll-progress" aria-hidden="true">
+        <div className="scroll-progress__bar"></div>
+      </div>
+
       <header className="navbar">
         <div className="container nav-inner">
           <div className="logo">
-            <Link to="/" className="logo" style={{ textDecoration: "none", color: "inherit" }}>
+            <NavLink to="/" end className="logo" style={{ textDecoration: "none", color: "inherit" }}>
               Torino Café
-            </Link>
+            </NavLink>
           </div>
+
           <nav className="nav">
-            <Link to="/menu">Menu</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+            <NavLink to="/" end className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
+              Home
+            </NavLink>
+            <NavLink to="/menu" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
+              Menu
+            </NavLink>
+            <NavLink to="/about" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
+              About
+            </NavLink>
+            <NavLink to="/contact" className={({isActive}) => "nav-link" + (isActive ? " active" : "")}>
+              Contact
+            </NavLink>
           </nav>
         </div>
       </header>
@@ -28,12 +56,11 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          {/* مسارات قديمة لو كانت #anchors */}
           <Route path="/index.html" element={<Navigate to="/" replace />} />
-          {/* أي مسار مش معروف */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -41,6 +68,16 @@ export default function App() {
       <footer className="footer">
         <div className="container">© {new Date().getFullYear()} Torino Café</div>
       </footer>
+
+      <BackToTop />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Shell />
+    </BrowserRouter>
   );
 }
