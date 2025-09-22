@@ -87,41 +87,33 @@ body.scrolled .navbar{box-shadow:0 6px 24px rgba(0,0,0,.35);background:rgba(17,2
   border-color:#41536f; box-shadow:0 0 0 3px rgba(147,197,253,.15);
 }
 /* === Home Hero Background === */
+/* === Home Hero Background (with AVIF/WebP + JPG fallback) === */
+/* === Home Hero Background (JPG فقط) === */
 .hero{
   position: relative;
-  /* لو نافبارك ثابت، ده بيخلي الهيرو يغطي الشاشة كلها تقريبًا */
   min-height: calc(100vh - 72px);
   display: flex;
   align-items: center;
-  /* غَمْقة خفيفة فوق الصورة + الصورة */
+
+  /* تعتيم خفيف فوق الصورة + الصورة من /public/img */
   background-image:
     linear-gradient(rgba(8,12,20,.45), rgba(8,12,20,.45)),
     url("/img/home-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  /* تأثير بارالاكس بسيط (ممكن يتجاهَل على الموبايل) */
-  background-attachment: fixed;
+  background-attachment: fixed; /* بيتلغي على الموبايل تحت */
   color: #e2e8f0;
 }
 
-/* محتوى الهيرو */
-/* === Home Hero Background === */
-/* === Home Hero Background === */
-.hero{
-  position: relative;
-  min-height: calc(100vh - 72px);
-  display: flex;
-  align-items: center;
-  /* غَمْقة خفيفة فوق الصورة + الصورة من /public/img */
-  background-image:
-    linear-gradient(rgba(8,12,20,.45), rgba(8,12,20,.45)),
-    url("/img/home-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: #e2e8f0;
+/* موبايل: نلغي الثبات للسلاسة */
+@media (max-width: 768px) {
+  .hero{ background-attachment: scroll; }
+}
+
+/* احترام تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  .hero{ background-attachment: scroll; }
 }
 
 /* محتوى الهيرو */
@@ -129,28 +121,14 @@ body.scrolled .navbar{box-shadow:0 6px 24px rgba(0,0,0,.35);background:rgba(17,2
   padding: 56px 16px;
   text-align: center;
 }
-
 .hero h1{
   font-size: clamp(28px, 4vw, 44px);
   margin: 0 0 12px;
 }
-
 .hero p{
   font-size: clamp(14px, 2.2vw, 18px);
   color: var(--muted, #94a3b8);
   margin: 0 auto;
   max-width: 720px;
 }
-/* === Mobile tweaks: background scroll for smoother UX === */
-@media (max-width: 768px) {
-  .hero{
-    background-attachment: scroll;
-  }
-}
 
-/* احترام تفضيل تقليل الحركة */
-@media (prefers-reduced-motion: reduce) {
-  .hero{
-    background-attachment: scroll;
-  }
-}
