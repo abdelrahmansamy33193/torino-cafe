@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
 
   entry: { main: path.resolve(__dirname, 'src/index.js') },
 
-  devtool: 'source-map',
+  devtool: false,
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -24,34 +25,19 @@ module.exports = {
 
   module: {
     rules: [
-      // JS/JSX via Babel
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: { loader: 'babel-loader' }
-      },
-
-      // CSS: extract in prod
-      {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-
-      // Images & assets
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, use: { loader: 'babel-loader' } },
+      { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: 'asset',
         parser: { dataUrlCondition: { maxSize: 10 * 1024 } },
         generator: { filename: 'assets/[name][ext][query]' }
       },
-
-      // Fonts
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/fonts/[name][ext][query]' }
       }
-      // ⚠️ ما نستخدم html-loader في الإنتاج هنا
     ]
   },
 
@@ -61,6 +47,16 @@ module.exports = {
   },
 
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public'),
+          to: '.',
+          globOptions: { ignore: ['**/index.html'] }
+        }
+      ]
+    }),
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html',
@@ -92,21 +88,13 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [
-      new TerserPlugin({
-        extractComments: false,
-        terserOptions: { compress: { drop_console: false } }
-      }),
+      new TerserPlugin({ extractComments: false, terserOptions: { compress: { drop_console: false } } }),
       new CssMinimizerPlugin()
     ],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          priority: -10,
-          reuseExistingChunk: true
-        }
+        vendors: { test: /[\\/]node_modules[\\/]/, name: 'vendors', priority: -10, reuseExistingChunk: true }
       }
     },
     runtimeChunk: 'single'
