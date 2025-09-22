@@ -4,13 +4,12 @@
   "description": "React + Webpack setup for Torino Cafe",
   "main": "src/index.js",
   "scripts": {
-  "start": "cross-env NODE_ENV=development BABEL_ENV=development webpack serve --config webpack.dev.js",
-  "build": "cross-env NODE_ENV=production BABEL_ENV=production webpack --config webpack.prod.js",
-  "preview": "serve -s dist -l 5000",
-  "clean": "rimraf dist node_modules/.cache",
-  "rebuild": "npm run clean && npm run build"
-}
-,
+    "start": "cross-env NODE_ENV=development BABEL_ENV=development webpack serve --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production BABEL_ENV=production webpack --config webpack.prod.js",
+    "preview": "serve -s dist -l 5000",
+    "clean": "rimraf dist node_modules/.cache",
+    "rebuild": "npm run clean && npm run build"
+  },
   "keywords": [
     "react",
     "webpack",
@@ -29,6 +28,7 @@
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.24.0",
     "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^13.0.1",
     "cross-env": "^10.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",

@@ -20,33 +20,20 @@ module.exports = {
 
   module: {
     rules: [
-      // JS/JSX عبر Babel (الإعدادات من .babelrc)
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: { loader: 'babel-loader', options: { cacheDirectory: true } }
-      },
-
-      // CSS
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, use: { loader: 'babel-loader', options: { cacheDirectory: true } } },
       { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
-
-      // صور وأصول عامة
       {
         test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
         type: 'asset',
         parser: { dataUrlCondition: { maxSize: 10 * 1024 } },
         generator: { filename: 'assets/[name][ext][query]' }
       },
-
-      // خطوط
       {
         test: /\.(woff2?|eot|ttf|otf)$/i,
         type: 'asset/resource',
         generator: { filename: 'assets/fonts/[name][ext][query]' }
-      },
-
-      // HTML (لو عندك صور داخل HTML)
-      { test: /\.html$/i, loader: 'html-loader' }
+      }
+      // ⚠️ بدون html-loader
     ]
   },
 
@@ -58,7 +45,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
-      filename: 'index.html'
+      filename: 'index.html',
+      inject: 'body',
+      scriptLoading: 'defer'
     })
   ],
 
@@ -67,7 +56,6 @@ module.exports = {
     splitChunks: { chunks: 'all' }
   },
 
-  // dev-server v4
   devServer: {
     static: { directory: path.resolve(__dirname, 'dist'), watch: true },
     host: '0.0.0.0',
