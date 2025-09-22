@@ -89,22 +89,39 @@ body.scrolled .navbar{box-shadow:0 6px 24px rgba(0,0,0,.35);background:rgba(17,2
 /* === Home Hero Background === */
 /* === Home Hero Background (with AVIF/WebP + JPG fallback) === */
 /* === Home Hero Background (JPG فقط) === */
+/* === Home Hero Background === */
 .hero{
+  /* تخلي الخلفية واخدة الشاشة كلها */
+  height: 100svh;       /* يدعم الموبايل الحديث */
+  min-height: 100vh;    /* فallback عام */
   position: relative;
-  min-height: calc(100vh - 72px);
   display: flex;
   align-items: center;
+  justify-content: center;
 
-  /* تعتيم خفيف فوق الصورة + الصورة من /public/img */
+  /* غَمْقة خفيفة + الصورة من مجلد public (ما تغيّرش المسار) */
   background-image:
     linear-gradient(rgba(8,12,20,.45), rgba(8,12,20,.45)),
-    url("/img/home-bg.jpg");
+    url(/img/home-bg.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* بيتلغي على الموبايل تحت */
+
+  /* بارالاكس بسيط – هنلغي على الموبايل */
+  background-attachment: fixed;
   color: #e2e8f0;
 }
+
+/* عشان المحتوى ما يختبّيش ورا الـ navbar الـ sticky */
+.hero .container{
+  padding-top: 72px; /* عدّل الرقم لو ارتفاع النافبار مختلف */
+}
+
+/* على الموبايل، fixed ساعات بتعمل مشاكل */
+@media (max-width: 1024px){
+  .hero{ background-attachment: scroll; }
+}
+
 
 /* موبايل: نلغي الثبات للسلاسة */
 @media (max-width: 768px) {
